@@ -44,6 +44,9 @@ function FileUpload() {
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <div>
       <div className="title">Upload JSON File</div>
@@ -87,7 +90,7 @@ function FileUpload() {
           Submit
         </button>
       </div>
-      {showModal && <SuccessModal numberofEntries="" />}
+      {showModal && <SuccessModal closeModal={closeModal} />}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/styles.css";
 
-const SuccessModal = () => {
+const SuccessModal = ({ closeModal }) => {
   return (
     <div className="modalOverlay">
       <div className="modalContainer">
@@ -30,7 +30,7 @@ const SuccessModal = () => {
             <div className="entriesText">524 entries successfully uploaded</div>
             <div className="buttons">
               <button>Go to My Entries</button>
-              <button>Cancel</button>
+              <button onClick={closeModal}>Cancel</button>
             </div>
           </div>
         </div>
