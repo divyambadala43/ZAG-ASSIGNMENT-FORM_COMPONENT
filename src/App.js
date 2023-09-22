@@ -1,10 +1,10 @@
 import "./App.css";
-import InputContainer from "./components/InputContainer";
+import Form from "./components/Form";
 
 function App() {
   return (
     <div>
-      <InputContainer />
+      <Form />
     </div>
   );
 }
