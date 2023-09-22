@@ -161,3 +161,18 @@
   align-items: center;
   height: 100%;
 }
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 12px;
+}
+.submitFormHeader {
+  color: #292727;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02px;
+  margin-left: 20px;
+}
