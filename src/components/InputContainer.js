@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/InputContainer.css";
+import "../styles/styles.css";
 
 const InputContainer = ({ title, placeholder }) => {
   return (
