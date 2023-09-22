@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import FileContents from "./FileContents";
 import SuccessModal from "./SuccessModal";
 import "../styles/styles.css";
+import InputContainer from "./InputContainer";
 
 function FileUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileContents, setFileContents] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -38,7 +41,27 @@ function FileUpload() {
     }
   };
 
+  const nameHandler = (e) => {
+    const value = e.target.value;
+    setName(value);
+  };
+
+  // Function to handle changes in input2
+  const emailHandler = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+  };
+
+  const checkFormCompletion = () => {
+    if (selectedFile && name && email) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  };
+
   const handleSubmit = () => {
+    checkFormCompletion();
     if (isFormValid) {
       setShowModal(true);
     }
@@ -48,7 +71,19 @@ function FileUpload() {
     setShowModal(false);
   };
   return (
-    <div>
+    <>
+      <InputContainer
+        onChange={nameHandler}
+        title="Full Name"
+        placeholder="Full Name"
+        value={name}
+      />
+      <InputContainer
+        onChange={emailHandler}
+        title="Email"
+        placeholder="Email"
+        value={email}
+      />
       <div className="title">Upload JSON File</div>
       <div className="container">
         <div className="fileUploader">
@@ -84,14 +119,14 @@ function FileUpload() {
       <div className="buttonContainer">
         <button
           disabled={!isFormValid}
-          className="submitButton"
+          className={isFormValid ? "submitButtonActive" : "submitButtonDisabled"}
           onClick={handleSubmit}
           value={selectedFile}>
           Submit
         </button>
       </div>
       {showModal && <SuccessModal closeModal={closeModal} />}
-    </div>
+    </>
   );
 }
 

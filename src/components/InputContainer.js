@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/styles.css";
 
-const InputContainer = ({ title, placeholder }) => {
+const InputContainer = ({ title, placeholder, onChange, value }) => {
   return (
     <div className="inputContainer">
       <div className="title">{title}</div>
@@ -11,7 +11,13 @@ const InputContainer = ({ title, placeholder }) => {
           justifyContent: "center",
           marginBottom: "18px",
         }}>
-        <input className="input" type="text" placeholder={placeholder} />
+        <input
+          className="input"
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
       </div>
     </div>
   );
