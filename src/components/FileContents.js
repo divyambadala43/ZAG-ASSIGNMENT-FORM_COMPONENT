@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
+import "../styles/styles.css";
 
-const FileContents = ({fileContents}) => {
+const FileContents = ({ fileContents }) => {
   return (
     <div>
-      <h2>File Contents</h2>
       <pre>{fileContents}</pre>
     </div>
   );
-}
+};
 
-export default FileContents
+export default FileContents;

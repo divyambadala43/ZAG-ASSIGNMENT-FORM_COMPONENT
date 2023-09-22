@@ -34,7 +34,7 @@
 
 .fileUploader {
   border-radius: 10px;
-  border: 1px dashed #d9d9d9;
+  border: 3px dashed #d9d9d9;
   background: #fafafa;
   width: 319px;
   height: 114px;
@@ -67,4 +67,21 @@
 .buttonContainer button {
   position: absolute;
   bottom: 15px;
+}
+
+.fileContent {
+  width: 319px;
+  height: 144px;
+  border-radius: 10px;
+  background: #fafafa;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 17px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }
