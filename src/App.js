@@ -1,8 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
+import InputContainer from "./components/InputContainer";
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <InputContainer />
+    </div>
+  );
 }
 
 export default App;
