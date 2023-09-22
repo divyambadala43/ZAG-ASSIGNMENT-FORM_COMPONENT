@@ -87,7 +87,7 @@ function FileUpload() {
           Submit
         </button>
       </div>
-      {showModal && <SuccessModal />}
+      {showModal && <SuccessModal numberofEntries="" />}
     </div>
   );
 }
