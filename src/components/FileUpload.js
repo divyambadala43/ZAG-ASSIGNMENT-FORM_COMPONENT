@@ -1,31 +1,27 @@
 // src/components/FileUploadForm.js
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import FileContents from "./FileContents";
 import SuccessModal from "./SuccessModal";
 import "../styles/styles.css";
 import InputContainer from "./InputContainer";
 
 function FileUpload() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [fileContents, setFileContents] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) {
       setError("Please select a file.");
-      setIsFormValid(false);
       return;
     }
 
     if (file.type === "application/json") {
       setError("");
-      setSelectedFile(file);
-      setIsFormValid(true);
 
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -35,9 +31,7 @@ function FileUpload() {
       reader.readAsText(file);
     } else {
       setError("Please select a valid JSON file.");
-      setSelectedFile(null);
       setFileContents("");
-      setIsFormValid(false);
     }
   };
 
@@ -46,25 +40,18 @@ function FileUpload() {
     setName(value);
   };
 
-  // Function to handle changes in input2
   const emailHandler = (e) => {
     const value = e.target.value;
     setEmail(value);
   };
 
-  const checkFormCompletion = () => {
-    if (selectedFile && name && email) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  };
+  const isFormValid = useMemo(
+    () => name && email && fileContents,
+    [name, email, fileContents]
+  );
 
   const handleSubmit = () => {
-    checkFormCompletion();
-    if (isFormValid) {
-      setShowModal(true);
-    }
+    setShowModal(true);
   };
 
   const closeModal = () => {
@@ -119,9 +106,10 @@ function FileUpload() {
       <div className="buttonContainer">
         <button
           disabled={!isFormValid}
-          className={isFormValid ? "submitButtonActive" : "submitButtonDisabled"}
-          onClick={handleSubmit}
-          value={selectedFile}>
+          className={
+            isFormValid ? "submitButtonActive" : "submitButtonDisabled"
+          }
+          onClick={handleSubmit}>
           Submit
         </button>
       </div>

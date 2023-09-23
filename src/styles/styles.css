@@ -80,7 +80,7 @@
 }
 
 .buttonContainer button {
-  position: absolute;
+  position: fixed;
   bottom: 15px;
 }
 
