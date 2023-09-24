@@ -2,8 +2,9 @@
 import React, { useState, useMemo } from "react";
 import FileContents from "./FileContents";
 import SuccessModal from "./SuccessModal";
-import "../styles/styles.css";
 import InputContainer from "./InputContainer";
+import Loader from "react-js-loader";
+import "../styles/styles.css";
 
 function FileUpload() {
   // const [selectedFile, setSelectedFile] = useState(null);
@@ -12,6 +13,7 @@ function FileUpload() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -22,13 +24,17 @@ function FileUpload() {
 
     if (file.type === "application/json") {
       setError("");
+      setIsLoading(true);
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const content = event.target.result;
-        setFileContents(content);
-      };
-      reader.readAsText(file);
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const content = event.target.result;
+          setFileContents(content);
+          setIsLoading(false);
+        };
+        reader.readAsText(file);
+      }, 2000); // Adjust the delay duration as needed
     } else {
       setError("Please select a valid JSON file.");
       setFileContents("");
@@ -86,14 +92,25 @@ function FileUpload() {
                 fill="#4381FF"
               />
             </svg>
-            <input
-              name="file"
-              type="file"
-              accept=".json"
-              onChange={handleFileChange}
-            />
+            {isLoading ? (
+              <div className="uploadLoader">
+                <Loader
+                  type="spinner-default"
+                  bgColor={"#4381FF"}
+                  title={"box-rotate-x"}
+                  size={50}
+                />
+              </div>
+            ) : (
+              <input
+                name="file"
+                type="file"
+                accept=".json"
+                onChange={handleFileChange}
+              />
+            )}
             {error && <p className="error">{error}</p>}
-            Browse Files
+            {!isLoading && <div>Browse Files</div>}
           </label>
         </div>
       </div>
