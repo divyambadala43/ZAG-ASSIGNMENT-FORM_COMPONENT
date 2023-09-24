@@ -1,12 +1,12 @@
 import "./App.css";
-import Form from "./components/Form";
+import FileUpload from "./components/FileUpload";
 import Header from "./components/Header";
 
 function App() {
   return (
     <div>
       <Header />
-      <Form />
+      <FileUpload />
     </div>
   );
 }

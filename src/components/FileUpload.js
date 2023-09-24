@@ -1,4 +1,3 @@
-// src/components/FileUploadForm.js
 import React, { useState, useMemo } from "react";
 import FileContents from "./FileContents";
 import SuccessModal from "./SuccessModal";
@@ -7,7 +6,7 @@ import Loader from "react-js-loader";
 import "../styles/styles.css";
 
 function FileUpload() {
-  // const [selectedFile, setSelectedFile] = useState(null);
+  // State variables
   const [fileContents, setFileContents] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +14,7 @@ function FileUpload() {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Event handler for file input change
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) {
@@ -26,6 +26,7 @@ function FileUpload() {
       setError("");
       setIsLoading(true);
 
+      // Simulating a delay to load file contents (adjust duration as needed)
       setTimeout(() => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -34,13 +35,14 @@ function FileUpload() {
           setIsLoading(false);
         };
         reader.readAsText(file);
-      }, 2000); // Adjust the delay duration as needed
+      }, 2000);
     } else {
       setError("Please select a valid JSON file.");
       setFileContents("");
     }
   };
 
+  // Event handlers for name and email input changes
   const nameHandler = (e) => {
     const value = e.target.value;
     setName(value);
@@ -51,20 +53,25 @@ function FileUpload() {
     setEmail(value);
   };
 
+  // Memoized value to determine if the form is valid
   const isFormValid = useMemo(
     () => name && email && fileContents,
     [name, email, fileContents]
   );
 
+  // Event handler for form submission
   const handleSubmit = () => {
     setShowModal(true);
   };
 
+  // Event handler to close the success modal
   const closeModal = () => {
     setShowModal(false);
   };
+
   return (
     <>
+      {/* Input fields for name and email */}
       <InputContainer
         onChange={nameHandler}
         title="Full Name"
@@ -77,10 +84,13 @@ function FileUpload() {
         placeholder="Email"
         value={email}
       />
+
+      {/* File upload section */}
       <div className="title">Upload JSON File</div>
       <div className="container">
         <div className="fileUploader">
           <label>
+            {/* Upload icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -93,6 +103,7 @@ function FileUpload() {
               />
             </svg>
             {isLoading ? (
+              // Loader while uploading
               <div className="uploadLoader">
                 <Loader
                   type="spinner-default"
@@ -102,6 +113,7 @@ function FileUpload() {
                 />
               </div>
             ) : (
+              // Input for selecting a file
               <input
                 name="file"
                 type="file"
@@ -114,12 +126,16 @@ function FileUpload() {
           </label>
         </div>
       </div>
+
+      {/* File contents display */}
       <div className="title">File Contents</div>
       <div className="container">
         <div className="fileContent">
           {fileContents && <FileContents fileContents={fileContents} />}
         </div>
       </div>
+
+      {/* Submit button */}
       <div className="buttonContainer">
         <button
           disabled={!isFormValid}
@@ -130,6 +146,8 @@ function FileUpload() {
           Submit
         </button>
       </div>
+
+      {/* Success modal */}
       {showModal && <SuccessModal closeModal={closeModal} />}
     </>
   );
